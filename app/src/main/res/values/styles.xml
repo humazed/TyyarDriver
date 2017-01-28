@@ -1,0 +1,170 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+
+    <style name="AppTheme.RobotoRegular.MediumSize" parent="@style/AppTheme.RobotoRegular">
+        <item name="android:textSize">16.0sp</item>
+    </style>
+
+    <style name="AppTheme.RobotoRegular.MediumSize.Subtitle" parent="@style/AppTheme.RobotoRegular.MediumSize">
+        <item name="android:textColor">@color/light_grey</item>
+    </style>
+
+    <style name="AppTheme.RobotoRegular" parent="@style/AppTheme">
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif</item>
+    </style>
+
+    <style name="AppTheme.RobotoRegular.LargeSize" parent="@style/AppTheme.RobotoRegular">
+        <item name="android:textSize">18.0sp</item>
+    </style>
+
+
+    <style name="AppTheme.RobotoRegular.SmallSize" parent="@style/AppTheme.RobotoRegular">
+        <item name="android:textSize">14.0sp</item>
+    </style>
+
+    <style name="AppTheme.RobotoRegular.XLargeSize" parent="@style/AppTheme.RobotoRegular">
+        <item name="android:textSize">20.0sp</item>
+    </style>
+
+    <style name="AppTheme.RobotoRegular.XXLargeSize" parent="@style/AppTheme.RobotoRegular">
+        <item name="android:textSize">22.0sp</item>
+    </style>
+
+    <style name="AppTheme.RobotoRegular.XXXLargeSize" parent="@style/AppTheme.RobotoRegular">
+        <item name="android:textSize">24.0sp</item>
+    </style>
+
+    <style name="AppTheme.RobotoMedium.MediumSize" parent="@style/AppTheme.RobotoMedium">
+        <item name="android:textSize">16.0sp</item>
+    </style>
+
+    <style name="AppTheme.RobotoMedium.MediumSize.Heading" parent="@style/AppTheme.RobotoMedium.MediumSize">
+        <item name="android:textColor">@color/heading_grey</item>
+    </style>
+
+    <style name="AppTheme.RobotoMedium" parent="@style/AppTheme">
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif-medium</item>
+    </style>
+
+
+    <style name="AppTheme.Dialog" parent="@style/Theme.AppCompat.Light.Dialog">
+        <item name="android:textColorPrimary">@color/sea_blue</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowMinWidthMajor">95.00001%</item>
+        <item name="android:windowMinWidthMinor">95.00001%</item>
+        <item name="colorAccent">@color/red</item>
+    </style>
+
+    <style name="AppTheme.RobotoBold" parent="@style/AppTheme">
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif</item>
+    </style>
+
+
+    <style name="AppTheme.RobotoMedium.SmallSize.ButtonText" parent="@style/AppTheme.RobotoMedium.SmallSize">
+        <item name="android:textColor">@color/red</item>
+    </style>
+
+    <style name="AppTheme.Button.Borderless.Red" parent="@style/Widget.AppCompat.Button.Borderless">
+        <item name="android:textSize">14.0sp</item>
+        <item name="android:textColor">@color/red</item>
+        <item name="android:minWidth">68.0dip</item>
+    </style>
+
+    <style name="AppTheme.Button.Colored" parent="@style/Widget.AppCompat.Button.Colored">
+        <item name="android:textSize">14.0sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@drawable/floating_material_button_red</item>
+        <item name="android:minWidth">68.0dip</item>
+    </style>
+
+    <style name="AppTheme.Button.Colored.White" parent="@style/Base.Widget.AppCompat.Button">
+        <item name="android:textColor">@color/sea_blue</item>
+        <item name="android:background">@drawable/material_button_white</item>
+    </style>
+
+    <style name="AppTheme.Dialog.FullScreen" parent="@style/Theme.AppCompat.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+    </style>
+
+    <style name="AppTheme.RobotoBold.LargeSize" parent="@style/AppTheme.RobotoBold">
+        <item name="android:textSize">20.0sp</item>
+    </style>
+
+    <style name="AppTheme.RobotoBold.MediumSize" parent="@style/AppTheme.RobotoBold">
+        <item name="android:textSize">16.0sp</item>
+    </style>
+
+    <style name="AppTheme.RobotoBold.SmallSize" parent="@style/AppTheme.RobotoBold">
+        <item name="android:textSize">14.0sp</item>
+    </style>
+
+    <style name="AppTheme.RobotoBold.SmallSize.CardTitle" parent="@style/AppTheme.RobotoBold.SmallSize">
+        <item name="android:textColor">@color/sea_blue</item>
+    </style>
+
+    <style name="AppTheme.RobotoBold.SmallSize.CardTitle.White" parent="@style/AppTheme.RobotoBold.SmallSize.CardTitle">
+        <item name="android:textColor">@color/DD_WHITE</item>
+    </style>
+
+    <style name="AppTheme.RobotoMedium.LargeSize" parent="@style/AppTheme.RobotoMedium">
+        <item name="android:textSize">20.0sp</item>
+    </style>
+
+    <style name="AppTheme.RobotoMedium.LargeSize.Title" parent="@style/AppTheme.RobotoMedium.LargeSize">
+        <item name="android:textColor">@color/brown_grey</item>
+    </style>
+
+    <style name="AppTheme.RobotoMedium.MediumLargeSize" parent="@style/AppTheme.RobotoMedium">
+        <item name="android:textSize">18.0sp</item>
+    </style>
+
+
+    <style name="AppTheme.RobotoMedium.MediumSize.Title" parent="@style/AppTheme.RobotoMedium.MediumSize">
+        <item name="android:textColor">@color/brown_grey</item>
+    </style>
+
+    <style name="AppTheme.RobotoMedium.SmallSize" parent="@style/AppTheme.RobotoMedium">
+        <item name="android:textSize">14.0sp</item>
+    </style>
+
+    <style name="AppTheme.RobotoMedium.XLargeSize" parent="@style/AppTheme.RobotoMedium">
+        <item name="android:textSize">24.0sp</item>
+    </style>
+
+    <style name="AppTheme.RobotoMedium.XSmallSize" parent="@style/AppTheme.RobotoMedium">
+        <item name="android:textSize">12.0sp</item>
+    </style>
+
+
+    <style name="AppTheme.Translucent" parent="@style/AppTheme">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="@style/ThemeOverlay.AppCompat">
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorSecondary">@android:color/white</item>
+        <item name="android:textColorHint">@android:color/white</item>
+        <item name="colorControlNormal">@android:color/white</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay.Popup" parent="@style/AppTheme.AppBarOverlay">
+        <item name="android:background">@color/background_gray</item>
+    </style>
+
+</resources>
