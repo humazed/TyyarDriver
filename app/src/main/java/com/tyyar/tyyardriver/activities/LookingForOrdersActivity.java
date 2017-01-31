@@ -1,33 +1,65 @@
 package com.tyyar.tyyardriver.activities;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
+import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
+import com.blankj.utilcode.utils.ConvertUtils;
+import com.directions.route.Route;
+import com.directions.route.RouteException;
+import com.directions.route.Routing;
+import com.directions.route.RoutingListener;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.tyyar.tyyardriver.R;
 import com.tyyar.tyyardriver.dialogs.NewOrderDialogFragment;
 import com.tyyar.tyyardriver.utils.UiUtils;
 
-import java.util.concurrent.TimeUnit;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.schedulers.Schedulers;
 
-public class LookingForOrdersActivity extends AppCompatActivity implements OnMapReadyCallback {
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.support.v4.content.PermissionChecker.PERMISSION_GRANTED;
+import static com.blankj.utilcode.utils.Utils.getContext;
+import static com.google.android.gms.maps.CameraUpdateFactory.newLatLngBounds;
+
+public class LookingForOrdersActivity extends AppCompatActivity implements OnMapReadyCallback,
+        RoutingListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+    private static final String TAG = LookingForOrdersActivity.class.getSimpleName();
 
     @BindView(R.id.toolbar) Toolbar mToolbar;
-    //    @BindView(R.id.button) Button mButton;
+
+    private static final int REQ_PERMISSION = 1001;
+
     private GoogleMap mMap;
+    private GoogleApiClient mGoogleApiClient;
+    private Location mLastLocation;
     private CompositeDisposable mCompositeDisposable;
 
     @Override
@@ -44,13 +76,21 @@ public class LookingForOrdersActivity extends AppCompatActivity implements OnMap
                 .findFragmentById(R.id.map_frag);
         mapFragment.getMapAsync(this);
 
-        mCompositeDisposable.add(
-                Observable.timer(1, TimeUnit.SECONDS, Schedulers.io())
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(aLong -> showDialog()));
+        // Create an instance of GoogleAPIClient.
+        if (mGoogleApiClient == null) {
+            mGoogleApiClient = new GoogleApiClient.Builder(getContext())
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .build();
+        }
 
-//        mButton.setOnClickListener(v -> startActivity(new Intent(this, ToMerchantActivity.class)));
+//        mCompositeDisposable.add(
+//                Observable.timer(1, TimeUnit.SECONDS, Schedulers.io())
+//                        .subscribeOn(Schedulers.io())
+//                        .observeOn(AndroidSchedulers.mainThread())
+//                        .subscribe(aLong -> showDialog()));
+
 
     }
 
@@ -60,24 +100,169 @@ public class LookingForOrdersActivity extends AppCompatActivity implements OnMap
         newFragment.show(getSupportFragmentManager(), "dialog");
     }
 
-
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        if (checkPermission())
+            mMap.setMyLocationEnabled(true);
+        else askPermission();
+    }
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+    ///////////////////////////////////////////////////////////////////////////
+    // GoogleApiClient.ConnectionCallbacks ,onConnectionFailed
+    ///////////////////////////////////////////////////////////////////////////
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        Log.d(TAG, "onConnected ");
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+
+        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+                mGoogleApiClient);
+        if (mLastLocation != null) {
+            ArrayList<LatLng> points = new ArrayList<>();
+
+            // Add a marker in Sydney and move the camera
+            LatLng driver = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+            points.add(driver);
+            LatLng hotspot = new LatLng(30.0438905, 31.2361031);
+            mMap.addMarker(new MarkerOptions().position(hotspot).title("hotspot")
+                    .icon(getBitmapDescriptor(R.drawable.ic_hotspot_red_36dp)));
+
+            points.add(hotspot);
+
+            fitThePoints(points);
+
+            Routing routing = new Routing.Builder()
+                    .travelMode(Routing.TravelMode.DRIVING)
+                    .withListener(this)
+                    .waypoints(driver, hotspot)
+                    .build();
+            routing.execute();
+        }
+    }
+
+    private BitmapDescriptor getBitmapDescriptor(int id) {
+        Drawable vectorDrawable = ContextCompat.getDrawable(this, id);
+//        int h = ConvertUtils.dp2px(42);
+//        int w = ConvertUtils.dp2px(25);
+        int h = vectorDrawable.getIntrinsicHeight();
+        int w = vectorDrawable.getIntrinsicWidth();
+        vectorDrawable.setBounds(0, 0, w, h);
+        Bitmap bm = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bm);
+        vectorDrawable.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(bm);
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Log.e(TAG, "onConnectionFailed: " + connectionResult.getErrorMessage());
+    }
+
+    @Override
+    public void onStart() {
+        mGoogleApiClient.connect();
+        super.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        mGoogleApiClient.disconnect();
+        super.onStop();
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // RoutingListener
+    ///////////////////////////////////////////////////////////////////////////
+    @Override
+    public void onRoutingSuccess(ArrayList<Route> routes, int shortestRouteIndex) {
+        //add route(s) to the map.
+
+        //In case of more than 5 alternative routes
+        PolylineOptions polyOptions = new PolylineOptions();
+        polyOptions.color(getResources().getColor(R.color.colorAccent));
+        polyOptions.width(10);
+        polyOptions.addAll(routes.get(shortestRouteIndex).getPoints());
+        mMap.addPolyline(polyOptions);
+
+
+        Toast.makeText(getContext(), "Route " + 1 + ": distance - "
+                + routes.get(shortestRouteIndex).getDistanceValue() + ": duration - " +
+                routes.get(shortestRouteIndex).getDurationValue(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRoutingFailure(RouteException e) {
+        Log.e(TAG, "onRoutingFailure: ", e);
+    }
+
+    @Override
+    public void onRoutingStart() {
+
+    }
+
+    @Override
+    public void onRoutingCancelled() {
+
+    }
+
+    private void fitThePoints(ArrayList<LatLng> points) {
+        //Calculate the markers to get their position
+        LatLngBounds.Builder b = new LatLngBounds.Builder();
+        for (LatLng point : points) b.include(point);
+
+        //Change the padding as per needed
+        CameraUpdate cu = newLatLngBounds(b.build(), ConvertUtils.dp2px(100));
+        mMap.moveCamera(cu);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Runtime permissions
+    ///////////////////////////////////////////////////////////////////////////
+    // Check for permission to access Location
+    private boolean checkPermission() {
+        Log.d(TAG, "checkPermission()");
+        // Ask for permission if it wasn't granted yet
+        return (ContextCompat.checkSelfPermission(getContext(), ACCESS_FINE_LOCATION) == PERMISSION_GRANTED);
+    }
+
+    // Asks for permission
+    private void askPermission() {
+        Log.d(TAG, "askPermission()");
+        ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION},
+                REQ_PERMISSION
+        );
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        Log.d(TAG, "onRequestPermissionsResult()");
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case REQ_PERMISSION: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission granted
+                    if (checkPermission())
+                        mMap.setMyLocationEnabled(true);
+
+                } else {
+                    // Permission denied
+                    Toast.makeText(this, "permition denyed app can't work", Toast.LENGTH_LONG).show();
+                }
+                break;
+            }
+        }
     }
 
     @Override

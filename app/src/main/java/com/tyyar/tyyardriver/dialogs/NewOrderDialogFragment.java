@@ -118,6 +118,7 @@ public class NewOrderDialogFragment extends DialogFragment implements RoutingLis
         mTripSummaryMapView.getMapAsync(this::setupMap);
 
         mAcceptOrderButton.setOnClickListener(v -> startActivity(new Intent(getActivity(), ToMerchantActivity.class)));
+        mDeclineButton.setOnClickListener(v -> getDialog().dismiss());
 
         return view;
     }
@@ -127,8 +128,6 @@ public class NewOrderDialogFragment extends DialogFragment implements RoutingLis
         if (checkPermission())
             mMap.setMyLocationEnabled(true);
         else askPermission();
-
-
     }
 
 
