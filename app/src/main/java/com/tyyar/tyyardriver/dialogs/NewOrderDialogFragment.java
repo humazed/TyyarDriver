@@ -54,8 +54,8 @@ import static com.google.android.gms.maps.CameraUpdateFactory.newLatLngBounds;
  * Use the {@link NewOrderDialogFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NewOrderDialogFragment extends DialogFragment implements RoutingListener
-        , GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class NewOrderDialogFragment extends DialogFragment implements RoutingListener,
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     private static final String TAG = NewOrderDialogFragment.class.getSimpleName();
 
     @BindView(R.id.trip_summary_mapView) MapView mTripSummaryMapView;
@@ -182,6 +182,17 @@ public class NewOrderDialogFragment extends DialogFragment implements RoutingLis
         Log.e(TAG, "onConnectionFailed: " + connectionResult.getErrorMessage());
     }
 
+    @Override
+    public void onStart() {
+        mGoogleApiClient.connect();
+        super.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        mGoogleApiClient.disconnect();
+        super.onStop();
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     // RoutingListener
@@ -268,18 +279,6 @@ public class NewOrderDialogFragment extends DialogFragment implements RoutingLis
                 break;
             }
         }
-    }
-
-    @Override
-    public void onStart() {
-        mGoogleApiClient.connect();
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        mGoogleApiClient.disconnect();
-        super.onStop();
     }
 
     @Override
