@@ -29,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
         UiUtils.showDrawer(this, mToolbar).setSelection(1, false);
 
 //        mButton.setOnClickListener(v -> showDialog());
-//        mButton.setOnClickListener(v -> startActivity(new Intent(this, MapsActivity.class)));
-        startActivity(new Intent(this, MapsActivity.class));
+//        mButton.setOnClickListener(v -> startActivity(new Intent(this, StartNowActivity.class)));
+        startActivity(new Intent(this, StartNowActivity.class));
     }
 
     void showDialog() {

@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -30,8 +29,8 @@ import butterknife.ButterKnife;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.support.v4.content.PermissionChecker.PERMISSION_GRANTED;
 
-public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
-    private static final String TAG = MapsActivity.class.getSimpleName();
+public class StartNowActivity extends AppCompatActivity implements OnMapReadyCallback {
+    private static final String TAG = StartNowActivity.class.getSimpleName();
     private static final int REQ_PERMISSION = 1001;
     @BindView(R.id.toolbar) Toolbar mToolbar;
     @BindView(R.id.start_now_text_button) FrameLayout mStartNowTextButton;
@@ -43,7 +42,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
+        setContentView(R.layout.activity_start_now);
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
         UiUtils.showDrawer(this, mToolbar).setSelection(1, false);
@@ -69,14 +68,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        MapsInitializer.initialize(this);
         mMap = googleMap;
 
-        if (mMapView != null &&
-                mMapView.findViewById(Integer.parseInt("1")) != null) {
+        if (mMapView != null && mMapView.findViewById(Integer.parseInt("1")) != null) {
             // Get the button view
-            View locationButton = ((View) mMapView.findViewById(Integer.parseInt("1")
-            ).getParent()).findViewById(Integer.parseInt("2"));
+            View locationButton = ((View) mMapView.findViewById(Integer.parseInt("1"))
+                    .getParent()).findViewById(Integer.parseInt("2"));
             // and next place it, on bottom right (as Google Maps app)
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams)
                     locationButton.getLayoutParams();
@@ -125,7 +122,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 } else {
                     // Permission denied
-                    Toast.makeText(MapsActivity.this, "permition denyed app can't work", Toast.LENGTH_LONG).show();
+                    Toast.makeText(StartNowActivity.this, "permition denyed app can't work", Toast.LENGTH_LONG).show();
                 }
                 break;
             }

@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        tools:context="com.tyyar.tyyardriver.activities.MapsActivity"/>
+        tools:context="com.tyyar.tyyardriver.activities.StartNowActivity"/>
 
     <include
         layout="@layout/view_navigation_directions"
