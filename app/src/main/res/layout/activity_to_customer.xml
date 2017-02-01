@@ -20,8 +20,8 @@
         android:layout_weight="1"
         tools:context="com.tyyar.tyyardriver.activities.StartNowActivity"/>
 
-    <include
-        layout="@layout/view_navigation_directions"
+    <com.tyyar.tyyardriver.view.NavigationView
+        android:id="@+id/navigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
