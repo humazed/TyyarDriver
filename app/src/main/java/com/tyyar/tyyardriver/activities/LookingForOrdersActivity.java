@@ -5,6 +5,8 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -37,12 +39,16 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import com.tyyar.tyyardriver.R;
 import com.tyyar.tyyardriver.dialogs.NewOrderDialogFragment;
 import com.tyyar.tyyardriver.utils.UiUtils;
+import com.tyyar.tyyardriver.view.NavigationView;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.disposables.CompositeDisposable;
+import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.support.v4.content.PermissionChecker.PERMISSION_GRANTED;
@@ -52,15 +58,17 @@ import static com.google.android.gms.maps.CameraUpdateFactory.newLatLngBounds;
 public class LookingForOrdersActivity extends AppCompatActivity implements OnMapReadyCallback,
         RoutingListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     private static final String TAG = LookingForOrdersActivity.class.getSimpleName();
+    private static final int REQ_PERMISSION = 1001;
 
     @BindView(R.id.toolbar) Toolbar mToolbar;
-
-    private static final int REQ_PERMISSION = 1001;
+    @BindView(R.id.progress_bar) MaterialProgressBar mProgressBar;
+    @BindView(R.id.navigationView) NavigationView mNavigationView;
 
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
     private CompositeDisposable mCompositeDisposable;
+    private LatLng mHotspot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +78,12 @@ public class LookingForOrdersActivity extends AppCompatActivity implements OnMap
         setSupportActionBar(mToolbar);
         UiUtils.showDrawer(this, mToolbar).setSelection(1, false);
         mCompositeDisposable = new CompositeDisposable();
+
+        mHotspot = new LatLng(30.046591, 31.238080);
+        mNavigationView.setLocationAddress(
+                getCompleteAddressString(mHotspot.latitude, mHotspot.longitude));
+        mNavigationView.setLocationName("McDonald's");
+        mNavigationView.setDestination(mHotspot);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -92,6 +106,31 @@ public class LookingForOrdersActivity extends AppCompatActivity implements OnMap
 //                        .subscribe(aLong -> showDialog()));
 
 
+    }
+
+    private String getCompleteAddressString(double LATITUDE, double LONGITUDE) {
+        String strAdd = "";
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        try {
+            List<Address> addresses = geocoder.getFromLocation(LATITUDE, LONGITUDE, 1);
+            if (addresses != null) {
+                Address address = addresses.get(0);
+                StringBuilder strReturnedAddress = new StringBuilder("");
+
+                for (int i = 0; i < address.getMaxAddressLineIndex(); i++)
+                    strReturnedAddress.append(address.getAddressLine(i)).append(" ");
+
+                strAdd = strReturnedAddress.toString();
+                Log.w(TAG, "My Current loction address " + strReturnedAddress.toString());
+                Log.w(TAG, "address: " + address);
+            } else {
+                Log.w(TAG, "My Current loction address " + "No Address returned!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.w(TAG, "My Current loction address " + "Canont get Address!");
+        }
+        return strAdd;
     }
 
     private void showDialog() {
@@ -129,18 +168,17 @@ public class LookingForOrdersActivity extends AppCompatActivity implements OnMap
             // Add a marker in Sydney and move the camera
             LatLng driver = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
             points.add(driver);
-            LatLng hotspot = new LatLng(30.0438905, 31.2361031);
-            mMap.addMarker(new MarkerOptions().position(hotspot).title("hotspot")
+            mMap.addMarker(new MarkerOptions().position(mHotspot).title("hotspot")
                     .icon(getBitmapDescriptor(R.drawable.ic_hotspot_red_36dp)));
 
-            points.add(hotspot);
+            points.add(mHotspot);
 
             fitThePoints(points);
 
             Routing routing = new Routing.Builder()
                     .travelMode(Routing.TravelMode.DRIVING)
                     .withListener(this)
-                    .waypoints(driver, hotspot)
+                    .waypoints(driver, mHotspot)
                     .build();
             routing.execute();
         }
@@ -222,7 +260,7 @@ public class LookingForOrdersActivity extends AppCompatActivity implements OnMap
         for (LatLng point : points) b.include(point);
 
         //Change the padding as per needed
-        CameraUpdate cu = newLatLngBounds(b.build(), ConvertUtils.dp2px(100));
+        CameraUpdate cu = newLatLngBounds(b.build(), ConvertUtils.dp2px(150));
         mMap.moveCamera(cu);
     }
 

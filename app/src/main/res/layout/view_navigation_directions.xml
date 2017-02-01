@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:baselineAligned="false"
@@ -8,10 +9,11 @@
     android:padding="16.0dip">
 
     <TextView
+        android:id="@+id/instruction_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:lines="2"
-        android:text="Some instructions"
+        tools:text="Some instructions"
         android:textSize="18sp"/>
 
     <LinearLayout
@@ -29,27 +31,25 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/location_name"
+                android:id="@+id/location_name_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
-                android:text="El shprawy"
-                android:textSize="16.0sp"/>
+                tools:text="El shprawy"
+                android:textSize="16.0sp"
+                tools:targetApi="jelly_bean"/>
 
             <TextView
-                android:id="@+id/location_address"
+                android:id="@+id/location_address_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="12 nady el seka, nasr city"
+                tools:text="12 nady el seka, nasr city"
                 android:textSize="16.0dip"/>
         </LinearLayout>
 
         <RelativeLayout
-            android:id="@+id/directions_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
             android:gravity="center">
 
             <ImageView

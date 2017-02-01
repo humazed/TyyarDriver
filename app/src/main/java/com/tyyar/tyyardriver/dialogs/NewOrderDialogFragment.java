@@ -43,6 +43,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.support.v4.content.PermissionChecker.PERMISSION_GRANTED;
@@ -62,6 +63,8 @@ public class NewOrderDialogFragment extends DialogFragment implements RoutingLis
     @BindView(R.id.decline_button) Button mDeclineButton;
     @BindView(R.id.accept_order_button) Button mAcceptOrderButton;
     @BindView(R.id.distance_textView) TextView mDistanceTextView;
+
+    Unbinder unbinder;
 
     private static final int REQ_PERMISSION = 1001;
     private static final String ARG_PARAM1 = "param1";
@@ -111,7 +114,7 @@ public class NewOrderDialogFragment extends DialogFragment implements RoutingLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_new_order_dialog, container, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         mTripSummaryMapView.onCreate(savedInstanceState);
 
 
@@ -323,5 +326,8 @@ public class NewOrderDialogFragment extends DialogFragment implements RoutingLis
             mTripSummaryMapView.onSaveInstanceState(outState);
         }
     }
-
+    @Override public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
 }

@@ -29,13 +29,9 @@
         android:layout_weight="1"
         tools:context="com.tyyar.tyyardriver.activities.StartNowActivity"/>
 
-<!--
-    <Button
-        android:id="@+id/button"
+    <com.tyyar.tyyardriver.view.NavigationView
+        android:id="@+id/navigationView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button"/>
--->
-
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
