@@ -9,7 +9,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.blankj.utilcode.utils.ConvertUtils;
-import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
@@ -21,7 +21,6 @@ import java.util.Locale;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.support.v4.content.PermissionChecker.PERMISSION_GRANTED;
 import static com.blankj.utilcode.utils.Utils.getContext;
-import static com.google.android.gms.maps.CameraUpdateFactory.newLatLngBounds;
 
 /**
  * User: YourPc
@@ -63,8 +62,8 @@ public class MapUtils {
         for (LatLng point : points) b.include(point);
 
         //Change the padding as per needed
-        CameraUpdate cu = newLatLngBounds(b.build(), ConvertUtils.dp2px(150));
-        map.moveCamera(cu);
+        map.moveCamera(CameraUpdateFactory.newLatLngBounds(b.build(), ConvertUtils.dp2px(30)));
+        map.moveCamera(CameraUpdateFactory.zoomTo(map.getCameraPosition().zoom - 0.5f));
     }
 
     // Check for permission to access Location
@@ -81,6 +80,5 @@ public class MapUtils {
                 requestCode
         );
     }
-
 
 }

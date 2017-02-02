@@ -14,6 +14,8 @@ import android.widget.TextView;
 import com.google.android.gms.maps.model.LatLng;
 import com.tyyar.tyyardriver.R;
 
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -58,7 +60,9 @@ public class NavigationView extends LinearLayout {
         mDirectionsIcon.setOnClickListener(v -> {
             // Create a Uri from an intent string. Use the result to create an Intent.
             Uri gmmIntentUri = Uri.parse(
-                    String.format("google.navigation:q=%s,%s", mDestination.latitude, mDestination.longitude));
+                    String.format(Locale.US,
+                            "google.navigation:q=%f,%f", mDestination.latitude, mDestination.longitude));
+            Log.d(TAG, "init " + gmmIntentUri);
             Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
             mapIntent.setPackage("com.google.android.apps.maps");
 

@@ -11,7 +11,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +19,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.blankj.utilcode.utils.ConvertUtils;
 import com.directions.route.Route;
 import com.directions.route.RouteException;
 import com.directions.route.Routing;
@@ -28,12 +26,10 @@ import com.directions.route.RoutingListener;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.tyyar.tyyardriver.R;
@@ -45,9 +41,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-import static android.Manifest.permission.ACCESS_FINE_LOCATION;
-import static android.support.v4.content.PermissionChecker.PERMISSION_GRANTED;
-import static com.google.android.gms.maps.CameraUpdateFactory.newLatLngBounds;
+import static com.tyyar.tyyardriver.utils.MapUtils.askLocationPermission;
+import static com.tyyar.tyyardriver.utils.MapUtils.checkLocationPermission;
+import static com.tyyar.tyyardriver.utils.MapUtils.fitThePoints;
 
 
 /**
@@ -121,9 +117,9 @@ public class NewOrderDialogFragment extends DialogFragment implements RoutingLis
 
     private void setupMap(GoogleMap map) {
         mMap = map;
-        if (checkPermission())
+        if (checkLocationPermission())
             mMap.setMyLocationEnabled(true);
-        else askPermission();
+        else askLocationPermission(getActivity(), REQ_PERMISSION);
     }
 
 
@@ -156,7 +152,7 @@ public class NewOrderDialogFragment extends DialogFragment implements RoutingLis
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.customer_pin)));
             points.add(customer);
 
-            fitThePoints(points);
+            fitThePoints(mMap, points);
 
             Routing routing = new Routing.Builder()
                     .travelMode(Routing.TravelMode.DRIVING)
@@ -194,8 +190,6 @@ public class NewOrderDialogFragment extends DialogFragment implements RoutingLis
     ///////////////////////////////////////////////////////////////////////////
     @Override
     public void onRoutingSuccess(ArrayList<Route> routes, int shortestRouteIndex) {
-        //add route(s) to the map.
-
         //In case of more than 5 alternative routes
         PolylineOptions polyOptions = new PolylineOptions();
         polyOptions.color(getResources().getColor(R.color.colorAccent));
@@ -226,35 +220,9 @@ public class NewOrderDialogFragment extends DialogFragment implements RoutingLis
 
     }
 
-    private void fitThePoints(ArrayList<LatLng> points) {
-        //Calculate the markers to get their position
-        LatLngBounds.Builder b = new LatLngBounds.Builder();
-        for (LatLng point : points) b.include(point);
-
-        //Change the padding as per needed
-        CameraUpdate cu = newLatLngBounds(b.build(), ConvertUtils.dp2px(100));
-        mMap.moveCamera(cu);
-    }
-
-
     ///////////////////////////////////////////////////////////////////////////
     // Runtime permissions
     ///////////////////////////////////////////////////////////////////////////
-    // Check for permission to access Location
-    private boolean checkPermission() {
-        Log.d(TAG, "checkPermission()");
-        // Ask for permission if it wasn't granted yet
-        return (ContextCompat.checkSelfPermission(getContext(), ACCESS_FINE_LOCATION) == PERMISSION_GRANTED);
-    }
-
-    // Asks for permission
-    private void askPermission() {
-        Log.d(TAG, "askPermission()");
-        ActivityCompat.requestPermissions(getActivity(), new String[]{ACCESS_FINE_LOCATION},
-                REQ_PERMISSION
-        );
-    }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         Log.d(TAG, "onRequestPermissionsResult()");
@@ -264,7 +232,7 @@ public class NewOrderDialogFragment extends DialogFragment implements RoutingLis
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // Permission granted
-                    if (checkPermission())
+                    if (checkLocationPermission())
                         mMap.setMyLocationEnabled(true);
 
                 } else {

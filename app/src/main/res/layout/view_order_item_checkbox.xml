@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
@@ -17,16 +16,17 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="56.0dip"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="56dp"
+            android:layout_marginStart="56dp"
             android:background="@android:color/white"
             android:orientation="vertical"
-            android:paddingBottom="20.0dip"
-            tools:ignore="RtlHardcoded">
+            android:paddingBottom="20dp">
 
             <View
                 android:layout_width="fill_parent"
-                android:layout_height="1.0dip"
-                android:layout_marginBottom="20.0dip"
+                android:layout_height="1dp"
+                android:layout_marginBottom="20dp"
                 android:background="@color/light_gray"/>
 
             <LinearLayout
@@ -40,12 +40,13 @@
                     android:id="@+id/item_quantity_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="6.0dip"
+                    android:layout_marginRight="6dp"
+                    android:layout_marginEnd="6dp"
                     android:background="@color/black"
-                    android:paddingBottom="2.0dip"
-                    android:paddingLeft="4.0dip"
-                    android:paddingRight="4.0dip"
-                    android:paddingTop="2.0dip">
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:paddingTop="2dp">
 
                     <TextView
                         android:id="@+id/item_quantity"
@@ -70,8 +71,9 @@
                 style="@style/AppTheme.RobotoRegular.SmallSize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="16.0dip"
-                android:layout_marginTop="4.0dip"
+                android:layout_marginRight="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="4dp"
                 android:text="Pizza · Spicy BBQ sauce, diced chicken, peppers, and onion covered with cheese"
                 android:textColor="@color/medium_gray"/>
         </LinearLayout>
@@ -81,21 +83,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="16.0dip"
-            android:checked="false"
-            android:clickable="false"
-            android:focusable="false"
-            android:gravity="center"
-            tools:ignore="RtlHardcoded"/>
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:gravity="center"/>
     </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/special_instruction_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="56.0dip"
-        android:layout_marginRight="20.0dip"
-        android:orientation="vertical"
-        tools:ignore="RtlHardcoded"/>
+        android:layout_marginEnd="20dp"
+        android:layout_marginLeft="56dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginStart="56dp"
+        android:orientation="vertical"/>
 </LinearLayout>
