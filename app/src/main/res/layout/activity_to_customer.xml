@@ -33,6 +33,5 @@
         android:background="@color/green"
         android:text="I'm at customer"
         android:textColor="@color/white"/>
-
 </LinearLayout>
 

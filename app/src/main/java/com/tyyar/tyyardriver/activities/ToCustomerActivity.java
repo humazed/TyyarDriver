@@ -29,7 +29,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.tyyar.tyyardriver.R;
-import com.tyyar.tyyardriver.dialogs.PostDelivaryDialogFragment;
+import com.tyyar.tyyardriver.dialogs.PostDeliveryDialogFragment;
 import com.tyyar.tyyardriver.utils.UiUtils;
 import com.tyyar.tyyardriver.view.NavigationView;
 
@@ -94,7 +94,7 @@ public class ToCustomerActivity extends AppCompatActivity implements OnMapReadyC
 
     private void showDialog() {
         // Create the fragment and show it as a dialog.
-        PostDelivaryDialogFragment newFragment = PostDelivaryDialogFragment.newInstance("");
+        PostDeliveryDialogFragment newFragment = PostDeliveryDialogFragment.newInstance("");
         newFragment.show(getSupportFragmentManager(), "dialog");
     }
 

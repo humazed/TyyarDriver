@@ -79,13 +79,6 @@ public class NewOrderDialogFragment extends DialogFragment implements RoutingLis
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @return A new instance of fragment NewOrderDialogFragment.
-     */
     public static NewOrderDialogFragment newInstance(String param1) {
         NewOrderDialogFragment fragment = new NewOrderDialogFragment();
         Bundle args = new Bundle();
@@ -326,7 +319,9 @@ public class NewOrderDialogFragment extends DialogFragment implements RoutingLis
             mTripSummaryMapView.onSaveInstanceState(outState);
         }
     }
-    @Override public void onDestroyView() {
+
+    @Override
+    public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
     }

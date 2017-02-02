@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.tyyar.tyyardriver.R;
-import com.tyyar.tyyardriver.dialogs.NewOrderDialogFragment;
+import com.tyyar.tyyardriver.dialogs.PostDeliveryDialogFragment;
 import com.tyyar.tyyardriver.utils.UiUtils;
 
 import butterknife.BindView;
@@ -31,11 +31,12 @@ public class MainActivity extends AppCompatActivity {
 //        mButton.setOnClickListener(v -> showDialog());
 //        mButton.setOnClickListener(v -> startActivity(new Intent(this, StartNowActivity.class)));
         startActivity(new Intent(this, StartNowActivity.class));
+
     }
 
     void showDialog() {
         // Create the fragment and show it as a dialog.
-        NewOrderDialogFragment newFragment = NewOrderDialogFragment.newInstance("");
+        PostDeliveryDialogFragment newFragment = PostDeliveryDialogFragment.newInstance("");
         newFragment.show(getSupportFragmentManager(), "dialog");
     }
 }

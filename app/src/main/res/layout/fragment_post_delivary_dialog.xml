@@ -1,108 +1,91 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<?xml version="1" encoding="utf-8"?>
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:layout_margin="@dimen/activity_horizontal_margin">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@+id/tip_container"
-        android:background="@color/dd_white">
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="20dp">
 
-        <FrameLayout
-            android:id="@+id/image_container"
-            android:layout_width="52.0dip"
-            android:layout_height="52.0dip"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="28.0dip">
+        <ImageView
+            android:id="@+id/gear_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_post_thumbs_container"/>
 
-            <ImageView
-                android:id="@+id/gear_image"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:src="@drawable/ic_post_thumbs_container"/>
-
-            <ImageView
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:padding="15.0dip"
-                android:src="@drawable/ic_post_thumbs"/>
-        </FrameLayout>
-
-        <TextView
-            android:id="@+id/undo_option"
-            style="@style/AppTheme.RobotoMedium.MediumSize"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:padding="8.0dip"
-            android:textColor="@color/medium_gray"/>
-
-        <LinearLayout
-            android:id="@+id/info_container"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_above="@+id/continue_button"
-            android:layout_below="@+id/image_container"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/encouragement_text_view"
-                style="@style/AppTheme.RobotoRegular.XXLargeSize"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="encouragement_text_view"
-                android:textSize="26.0sp"/>
-
-            <TextView
-                style="@style/AppTheme.RobotoRegular.LargeSize"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4.0dip"
-                android:text="@string/delivery_complete"/>
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1.0dip"
-                android:layout_marginBottom="16.0dip"
-                android:layout_marginLeft="20.0dip"
-                android:layout_marginRight="20.0dip"
-                android:layout_marginTop="16.0dip"
-                android:background="@color/light_gray"/>
-
-            <TextView
-                android:id="@+id/delivery_pay_view"
-                style="@style/AppTheme.RobotoRegular.XXLargeSize"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="15 $"
-                android:textColor="@color/green"
-                android:textSize="26.0sp"/>
-
-            <TextView
-                android:id="@+id/num_deliveries_view"
-                style="@style/AppTheme.RobotoRegular.MediumSize"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6.0dip"
-                android:text="2 delivery today so far"
-                android:textColor="@color/green"/>
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/continue_button"
-            android:layout_width="fill_parent"
-            android:layout_height="68.0dip"
-            android:layout_above="@+id/undo_option"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/floating_material_button_red"
-            android:text="@string/delivery_continue"
-            android:textColor="@color/white"/>
-
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:padding="15dp"
+            android:src="@drawable/ic_post_thumbs"/>
     </RelativeLayout>
-</android.support.design.widget.CoordinatorLayout>
+
+    <TextView
+        android:id="@+id/encouragement_text_view"
+        style="@style/AppTheme.RobotoRegular.XXLargeSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="Woohoo!"
+        android:textSize="26dp"/>
+
+    <TextView
+        style="@style/AppTheme.RobotoRegular.LargeSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Delivery Complete"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="26dp"
+        android:background="@color/light_gray"/>
+
+    <TextView
+        android:id="@+id/delivery_pay_view"
+        style="@style/AppTheme.RobotoRegular.XXLargeSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
+        android:text="Loading pay info..."
+        android:textColor="@color/green"
+        android:textSize="26dp"/>
+
+    <TextView
+        android:id="@+id/num_deliveries_view"
+        style="@style/AppTheme.RobotoRegular.MediumSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="2 deliveries this sesstion"
+        android:textColor="@color/green"/>
+
+    <Button
+        android:id="@+id/continue_button"
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/floating_material_button_red"
+        android:text="Continue"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:id="@+id/undo_option"
+        style="@style/AppTheme.RobotoMedium.MediumSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="14dp"
+        android:text="@string/undo_delivery"
+        android:textColor="@color/medium_gray"/>
+</LinearLayout>
