@@ -65,7 +65,7 @@ public class ToCustomerActivity extends AppCompatActivity implements OnMapReadyC
         setContentView(R.layout.activity_to_customer);
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
-        UiUtils.showDrawer(this, mToolbar).setSelection(1, false);
+        UiUtils.showDrawer(this, mToolbar, 1);
 
         mCustomer = new LatLng(30.046591, 31.238080);
         mNavigationView.setLocationAddress(

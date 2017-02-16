@@ -68,7 +68,7 @@ public class LookingForOrdersActivity extends AppCompatActivity implements OnMap
         setContentView(R.layout.activity_looking_for_orders);
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
-        UiUtils.showDrawer(this, mToolbar).setSelection(1, false);
+        UiUtils.showDrawer(this, mToolbar, 1);
         mCompositeDisposable = new CompositeDisposable();
 
         mHotspot = new LatLng(30.046591, 31.238080);

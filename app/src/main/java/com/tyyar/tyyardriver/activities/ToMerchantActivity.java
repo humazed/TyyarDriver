@@ -65,7 +65,7 @@ public class ToMerchantActivity extends AppCompatActivity implements OnMapReadyC
         setContentView(R.layout.activity_to_merchant);
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
-        UiUtils.showDrawer(this, mToolbar).setSelection(1, false);
+        UiUtils.showDrawer(this, mToolbar, 1);
 
         mMerchant = new LatLng(30.046591, 31.238080);
         mNavigationView.setLocationAddress(

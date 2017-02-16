@@ -25,6 +25,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.tyyar.tyyardriver.R;
+import com.tyyar.tyyardriver.utils.MapUtils;
 import com.tyyar.tyyardriver.utils.UiUtils;
 
 import butterknife.BindView;
@@ -53,7 +54,7 @@ public class StartNowActivity extends AppCompatActivity implements OnMapReadyCal
         setContentView(R.layout.activity_start_now);
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
-        UiUtils.showDrawer(this, mToolbar).setSelection(1, false);
+        UiUtils.showDrawer(this, mToolbar, 1);
 
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -78,7 +79,7 @@ public class StartNowActivity extends AppCompatActivity implements OnMapReadyCal
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        UiUtils.movLocationButtonToTheBottom(mMapView);
+        MapUtils.movLocationButtonToTheBottom(mMapView);
 
         if (checkPermission())
             mMap.setMyLocationEnabled(true);

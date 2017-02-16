@@ -26,7 +26,7 @@ public class AtMerchantActivity extends AppCompatActivity {
         setContentView(R.layout.activity_at_merchant);
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
-        UiUtils.showDrawer(this, mToolbar).setSelection(1, false);
+        UiUtils.showDrawer(this, mToolbar, 1);
 
 
         mConfirmPickupButton.setOnClickListener(v -> startActivity(new Intent(this, ToCustomerActivity.class)));

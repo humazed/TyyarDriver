@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
-        UiUtils.showDrawer(this, mToolbar).setSelection(1, false);
+        UiUtils.showDrawer(this, mToolbar, 1);
 
 //        mButton.setOnClickListener(v -> showDialog());
 //        mButton.setOnClickListener(v -> startActivity(new Intent(this, StartNowActivity.class)));
