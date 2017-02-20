@@ -4,21 +4,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.widget.Button;
 
 import com.tyyar.tyyardriver.R;
 import com.tyyar.tyyardriver.utils.UiUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ng.max.slideview.SlideView;
 
 /**
- * appears after arrving at the merchant
+ * appears after arriving at the merchant
  */
 public class PickupActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar) Toolbar mToolbar;
-    @BindView(R.id.confirm_pickup_button) Button mConfirmPickupButton;
+    @BindView(R.id.confirm_pickup_slideView) SlideView mConfirmPickupSlideView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +28,6 @@ public class PickupActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         UiUtils.showDrawer(this, mToolbar, 1);
 
-
-        mConfirmPickupButton.setOnClickListener(v -> startActivity(new Intent(this, ToCustomerActivity.class)));
-
+        mConfirmPickupSlideView.setOnSlideCompleteListener(v -> startActivity(new Intent(this, ToCustomerActivity.class)));
     }
 }

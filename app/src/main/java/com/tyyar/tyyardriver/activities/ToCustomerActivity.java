@@ -37,6 +37,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ng.max.slideview.SlideView;
 
 import static com.tyyar.tyyardriver.utils.MapUtils.askLocationPermission;
 import static com.tyyar.tyyardriver.utils.MapUtils.checkLocationPermission;
@@ -50,8 +51,8 @@ public class ToCustomerActivity extends AppCompatActivity implements OnMapReadyC
     private static final int REQ_PERMISSION = 1001;
 
     @BindView(R.id.toolbar) Toolbar mToolbar;
-    @BindView(R.id.at_pickup_button) Button mAtPickupButton;
     @BindView(R.id.navigationView) NavigationView mNavigationView;
+    @BindView(R.id.confirm_delivery_slideView) SlideView mConfirmDeliverySlideView;
 
     private GoogleMap mMap;
     private View mMapView;
@@ -88,8 +89,7 @@ public class ToCustomerActivity extends AppCompatActivity implements OnMapReadyC
                     .build();
         }
 
-        mAtPickupButton.setOnClickListener(v -> showDialog());
-
+        mConfirmDeliverySlideView.setOnSlideCompleteListener(v -> showDialog());
     }
 
     private void showDialog() {

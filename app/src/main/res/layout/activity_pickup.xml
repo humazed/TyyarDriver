@@ -2,6 +2,7 @@
 <LinearLayout
     android:id="@+id/activity_at_merchant"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -25,13 +26,15 @@
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
-    <Button
-        android:id="@+id/confirm_pickup_button"
-        style="?android:attr/borderlessButtonStyle"
+    <ng.max.slideview.SlideView
+        android:id="@+id/confirm_pickup_slideView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/green"
-        android:text="Confirm pickup"
-        android:textColor="@color/white"/>
+        android:layout_margin="5dp"
+        app:buttonBackgroundColor="@color/white"
+        app:buttonImage="@drawable/ic_chevron_double_right"
+        app:slideBackgroundColor="@color/primary"
+        app:slideText="Slide after pickup"/>
+
 
 </LinearLayout>
