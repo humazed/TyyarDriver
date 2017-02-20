@@ -4,6 +4,37 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+
+    <!--MainActivity start-->
+
+    <!--MainActivity end-->
+
+    <!--StartNowActivity start-->
+    <string name="title_activity_start_now">@string/app_name</string>
+
+    <!--StartNowActivity end-->
+
+    <!--LookingForOrderActivity start-->
+    <string name="title_activity_looking_for_orders">Looking For Orders</string>
+
+    <!--LookingForOrderActivity end-->
+
+    <!--ToMerchantActivity start-->
+    <string name="title_activity_to_merchant">To Merchant</string>
+
+    <!--ToMerchantActivity end-->
+
+    <!--PickupActivity start-->
+    <string name="title_activity_pickup">Pick up order</string>
+
+    <!--PickupActivity end-->
+
+    <!--ToCustomerActivity start-->
+    <string name="title_activity_to_customer">To Customer</string>
+
+    <!--ToCustomerActivity end-->
+
+
     <string name="undo_delivery">"NOT DELIVERED <font color='#EE0000'>UNDO</font>"</string>
 
 
@@ -12,8 +43,6 @@
     <string name="preposition_for_date">on %s</string>
     <string name="preposition_for_time">at %s</string>
     <string name="relative_time">%1$s, %2$s</string>
-    <string name="search_menu_title">Search</string>
-    <string name="status_bar_notification_info_overflow">999+</string>
     <string name="attachment_download_failed_message">Failed to download. Tap to retry.</string>
     <string name="attachment_open_error_message">"Can't open attachment"</string>
     <string name="attachment_upload_access_error_message">Error accessing file</string>
@@ -648,8 +677,4 @@ Continue contact attempts until the timer runs out to allow time for the custome
     <string name="weekly_report_time_period">%1$s - %2$s</string>
     <string name="weekly_report_title">Weekly dash report</string>
     <string name="yes">yes</string>
-    <string name="title_activity_maps">Map</string>
-    <string name="title_activity_looking_for_orders">Looking For Orders</string>
-    <string name="title_activity_navigate_to_merchant">Map</string>
-    <string name="title_activity_navigate_to_customer">Map</string>
 </resources>

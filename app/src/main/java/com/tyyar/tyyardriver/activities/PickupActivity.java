@@ -15,7 +15,7 @@ import butterknife.ButterKnife;
 /**
  * appears after arrving at the merchant
  */
-public class AtMerchantActivity extends AppCompatActivity {
+public class PickupActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar) Toolbar mToolbar;
     @BindView(R.id.confirm_pickup_button) Button mConfirmPickupButton;
@@ -23,7 +23,7 @@ public class AtMerchantActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_at_merchant);
+        setContentView(R.layout.activity_pickup);
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
         UiUtils.showDrawer(this, mToolbar, 1);

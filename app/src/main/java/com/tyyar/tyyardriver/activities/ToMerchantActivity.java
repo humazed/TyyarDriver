@@ -88,7 +88,7 @@ public class ToMerchantActivity extends AppCompatActivity implements OnMapReadyC
                     .build();
         }
 
-        mAtPickupButton.setOnClickListener(v -> startActivity(new Intent(this, AtMerchantActivity.class)));
+        mAtPickupButton.setOnClickListener(v -> startActivity(new Intent(this, PickupActivity.class)));
     }
 
 

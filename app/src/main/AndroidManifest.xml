@@ -16,11 +16,11 @@
 
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:name=".App"
         android:theme="@style/AppTheme">
         <activity android:name=".activities.MainActivity">
             <intent-filter>
@@ -43,21 +43,23 @@
 
         <activity
             android:name=".activities.StartNowActivity"
-            android:label="@string/title_activity_maps">
+            android:label="@string/title_activity_start_now">
         </activity>
         <activity
             android:name=".activities.LookingForOrdersActivity"
             android:label="@string/title_activity_looking_for_orders">
         </activity>
-        <activity android:name=".activities.AtMerchantActivity">
-        </activity>
         <activity
             android:name=".activities.ToMerchantActivity"
-            android:label="@string/title_activity_navigate_to_merchant">
+            android:label="@string/title_activity_to_merchant">
+        </activity>
+        <activity
+            android:name=".activities.PickupActivity"
+            android:label="@string/title_activity_pickup">
         </activity>
         <activity
             android:name=".activities.ToCustomerActivity"
-            android:label="@string/title_activity_navigate_to_customer">
+            android:label="@string/title_activity_to_customer">
         </activity>
     </application>
 
