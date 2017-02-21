@@ -33,7 +33,6 @@ import butterknife.ButterKnife;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.support.v4.content.PermissionChecker.PERMISSION_GRANTED;
-import static com.blankj.utilcode.utils.Utils.getContext;
 
 public class StartNowActivity extends AppCompatActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
@@ -65,7 +64,7 @@ public class StartNowActivity extends AppCompatActivity implements OnMapReadyCal
 
         // Create an instance of GoogleAPIClient.
         if (mGoogleApiClient == null) {
-            mGoogleApiClient = new GoogleApiClient.Builder(getContext())
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
                     .addConnectionCallbacks(this)
                     .addOnConnectionFailedListener(this)
                     .addApi(LocationServices.API)
@@ -92,8 +91,8 @@ public class StartNowActivity extends AppCompatActivity implements OnMapReadyCal
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         Log.d(TAG, "onConnected ");
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(),
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
@@ -160,7 +159,7 @@ public class StartNowActivity extends AppCompatActivity implements OnMapReadyCal
 
                 } else {
                     // Permission denied
-                    Toast.makeText(StartNowActivity.this, "permition denyed app can't work", Toast.LENGTH_LONG).show();
+                    Toast.makeText(StartNowActivity.this, "permission denied app can't work", Toast.LENGTH_LONG).show();
                 }
                 break;
             }
