@@ -22,7 +22,6 @@ import java.util.Locale;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.support.v4.content.PermissionChecker.PERMISSION_GRANTED;
-import static com.blankj.utilcode.utils.Utils.getContext;
 
 /**
  * User: YourPc
@@ -69,10 +68,10 @@ public class MapUtils {
     }
 
     // Check for permission to access Location
-    public static boolean checkLocationPermission() {
+    public static boolean checkLocationPermission(Context context) {
         Log.d(TAG, "checkPermission()");
         // Ask for permission if it wasn't granted yet
-        return (ContextCompat.checkSelfPermission(getContext(), ACCESS_FINE_LOCATION) == PERMISSION_GRANTED);
+        return (ContextCompat.checkSelfPermission(context, ACCESS_FINE_LOCATION) == PERMISSION_GRANTED);
     }
 
     // Asks for permission

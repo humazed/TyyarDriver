@@ -95,7 +95,7 @@ public class ToMerchantActivity extends AppCompatActivity implements OnMapReadyC
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        if (checkLocationPermission())
+        if (checkLocationPermission(this))
             mMap.setMyLocationEnabled(true);
         else askLocationPermission(this, CONTEXT_INCLUDE_CODE);
     }
@@ -208,7 +208,7 @@ public class ToMerchantActivity extends AppCompatActivity implements OnMapReadyC
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // Permission granted
-                    if (checkLocationPermission())
+                    if (checkLocationPermission(this))
                         mMap.setMyLocationEnabled(true);
 
                 } else {

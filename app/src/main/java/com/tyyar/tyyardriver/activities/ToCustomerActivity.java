@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.directions.route.Route;
@@ -101,7 +100,7 @@ public class ToCustomerActivity extends AppCompatActivity implements OnMapReadyC
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        if (checkLocationPermission())
+        if (checkLocationPermission(this))
             mMap.setMyLocationEnabled(true);
         else askLocationPermission(this, REQ_PERMISSION);
     }
@@ -214,7 +213,7 @@ public class ToCustomerActivity extends AppCompatActivity implements OnMapReadyC
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // Permission granted
-                    if (checkLocationPermission())
+                    if (checkLocationPermission(this))
                         mMap.setMyLocationEnabled(true);
 
                 } else {

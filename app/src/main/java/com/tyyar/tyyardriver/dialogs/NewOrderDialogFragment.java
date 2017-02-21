@@ -117,7 +117,7 @@ public class NewOrderDialogFragment extends DialogFragment implements RoutingLis
 
     private void setupMap(GoogleMap map) {
         mMap = map;
-        if (checkLocationPermission())
+        if (checkLocationPermission(getContext()))
             mMap.setMyLocationEnabled(true);
         else askLocationPermission(getActivity(), REQ_PERMISSION);
     }
@@ -232,7 +232,7 @@ public class NewOrderDialogFragment extends DialogFragment implements RoutingLis
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // Permission granted
-                    if (checkLocationPermission())
+                    if (checkLocationPermission(getContext()))
                         mMap.setMyLocationEnabled(true);
 
                 } else {
