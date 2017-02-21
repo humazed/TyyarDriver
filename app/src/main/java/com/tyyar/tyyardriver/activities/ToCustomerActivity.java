@@ -29,7 +29,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.tyyar.tyyardriver.R;
 import com.tyyar.tyyardriver.dialogs.PostDeliveryDialogFragment;
-import com.tyyar.tyyardriver.utils.UiUtils;
 import com.tyyar.tyyardriver.view.NavigationView;
 
 import java.util.ArrayList;
@@ -65,7 +64,10 @@ public class ToCustomerActivity extends AppCompatActivity implements OnMapReadyC
         setContentView(R.layout.activity_to_customer);
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
-        UiUtils.showDrawer(this, mToolbar, 1);
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         mCustomer = new LatLng(30.046591, 31.238080);
         mNavigationView.setLocationAddress(

@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.tyyar.tyyardriver.R;
-import com.tyyar.tyyardriver.utils.UiUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,7 +25,10 @@ public class PickupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pickup);
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
-        UiUtils.showDrawer(this, mToolbar, 1);
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         mConfirmPickupSlideView.setOnSlideCompleteListener(v -> startActivity(new Intent(this, ToCustomerActivity.class)));
     }
