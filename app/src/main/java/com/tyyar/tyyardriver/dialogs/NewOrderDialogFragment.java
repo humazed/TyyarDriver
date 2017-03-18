@@ -143,11 +143,11 @@ public class NewOrderDialogFragment extends DialogFragment implements RoutingLis
             // Add a marker in Sydney and move the camera
             LatLng driver = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
             points.add(driver);
-            LatLng restaurant = new LatLng(30.0438905, 31.2361031);
+            LatLng restaurant = new LatLng(30.0246552, 30.9755531);
             mMap.addMarker(new MarkerOptions().position(restaurant).title("restaurant")
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.rest_pin)));
             points.add(restaurant);
-            LatLng customer = new LatLng(30.037581, 31.240961);
+            LatLng customer = new LatLng(29.9979245, 31.091235);
             mMap.addMarker(new MarkerOptions().position(customer).title("customer")
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.customer_pin)));
             points.add(customer);

@@ -1,6 +1,7 @@
 package com.tyyar.tyyardriver.activities;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import com.directions.route.RouteException;
 import com.directions.route.Routing;
 import com.directions.route.RoutingListener;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.GoogleMap;
@@ -25,21 +27,21 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.microsoft.windowsazure.notifications.NotificationsManager;
 import com.tyyar.tyyardriver.R;
 import com.tyyar.tyyardriver.dialogs.NewOrderDialogFragment;
+import com.tyyar.tyyardriver.notification.MyHandler;
+import com.tyyar.tyyardriver.notification.NotificationSettings;
+import com.tyyar.tyyardriver.notification.RegistrationIntentService;
 import com.tyyar.tyyardriver.utils.BitmapUtils;
 import com.tyyar.tyyardriver.utils.UiUtils;
 import com.tyyar.tyyardriver.view.NavigationView;
 
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.schedulers.Schedulers;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
 import static com.tyyar.tyyardriver.utils.MapUtils.askLocationPermission;
@@ -62,6 +64,12 @@ public class LookingForOrdersActivity extends AppCompatActivity implements OnMap
     private CompositeDisposable mCompositeDisposable;
     private LatLng mHotspot;
 
+
+    public static LookingForOrdersActivity mainActivity;
+    public static Boolean isVisible = false;
+    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,9 +77,10 @@ public class LookingForOrdersActivity extends AppCompatActivity implements OnMap
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
         UiUtils.showDrawer(this, mToolbar, 1);
+        setupNotification();
         mCompositeDisposable = new CompositeDisposable();
 
-        mHotspot = new LatLng(30.046591, 31.238080);
+        mHotspot = new LatLng(30.0246552,30.9755531);
         mNavigationView.setLocationAddress(
                 getCompleteAddressString(this, mHotspot.latitude, mHotspot.longitude));
         mNavigationView.setDestination(mHotspot);
@@ -92,15 +101,74 @@ public class LookingForOrdersActivity extends AppCompatActivity implements OnMap
                     .build();
         }
 
-        mCompositeDisposable.add(
-                Observable.timer(1, TimeUnit.SECONDS, Schedulers.io())
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(aLong -> showDialog()));
+//        mCompositeDisposable.add(
+//                Observable.timer(5, TimeUnit.SECONDS, Schedulers.io())
+//                        .subscribeOn(Schedulers.io())
+//                        .observeOn(AndroidSchedulers.mainThread())
+//                        .subscribe(aLong -> showDialog()));
 
 
     }
 
+
+    /**
+     * Check the device to make sure it has the Google Play Services APK. If
+     * it doesn't, display a dialog that allows users to download the APK from
+     * the Google Play Store or enable it in the device's system settings.
+     */
+    private boolean checkPlayServices() {
+        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+        int resultCode = apiAvailability.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (apiAvailability.isUserResolvableError(resultCode)) {
+                apiAvailability.getErrorDialog(this, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST)
+                        .show();
+            } else {
+                Log.i(TAG, "This device is not supported by Google Play Services.");
+                ToastNotify("This device is not supported by Google Play Services.");
+                finish();
+            }
+            return false;
+        }
+        return true;
+    }
+
+    public void registerWithNotificationHubs() {
+        if (checkPlayServices()) {
+            // Start IntentService to register this application with FCM.
+            Intent intent = new Intent(this, RegistrationIntentService.class);
+            startService(intent);
+        }
+    }
+
+    public void ToastNotify(final String notificationMessage) {
+        runOnUiThread(() -> {
+//            Toast.makeText(LookingForOrdersActivity.this, notificationMessage, Toast.LENGTH_LONG).show();
+//            TextView helloText = (TextView) findViewById(R.id.text_hello);
+//            helloText.setText(notificationMessage);
+//            Toast.makeText(LookingForOrdersActivity.this, "notificationMessage: " + notificationMessage, Toast.LENGTH_LONG).show();
+            Log.d(TAG, "ToastNotify " + "notificationMessage: " + notificationMessage);
+            showDialog();
+        });
+    }
+
+    private void setupNotification() {
+        mainActivity = this;
+        NotificationsManager.handleNotifications(this, NotificationSettings.SenderId, MyHandler.class);
+        registerWithNotificationHubs();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isVisible = false;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isVisible = true;
+    }
 
     private void showDialog() {
         // Create the fragment and show it as a dialog.
@@ -167,12 +235,14 @@ public class LookingForOrdersActivity extends AppCompatActivity implements OnMap
     public void onStart() {
         mGoogleApiClient.connect();
         super.onStart();
+        isVisible = true;
     }
 
     @Override
     public void onStop() {
         mGoogleApiClient.disconnect();
         super.onStop();
+        isVisible = false;
     }
 
     ///////////////////////////////////////////////////////////////////////////

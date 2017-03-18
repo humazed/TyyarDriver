@@ -69,12 +69,12 @@ public class ToCustomerActivity extends AppCompatActivity implements OnMapReadyC
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
-        mCustomer = new LatLng(30.046591, 31.238080);
+        mCustomer = new LatLng(30.037581, 31.240961);
         mNavigationView.setLocationAddress(
                 getCompleteAddressString(this, mCustomer.latitude, mCustomer.longitude));
         mNavigationView.setDestination(mCustomer);
-        mNavigationView.setLocationName("McDonald's");
-        mNavigationView.setInstruction("Some Instructions");
+        mNavigationView.setLocationName("Tahrir tower");
+        mNavigationView.setInstruction("No tomatoes");
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()

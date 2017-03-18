@@ -71,8 +71,8 @@ public class ToMerchantActivity extends AppCompatActivity implements OnMapReadyC
         mNavigationView.setLocationAddress(
                 MapUtils.getCompleteAddressString(this, mMerchant.latitude, mMerchant.longitude));
         mNavigationView.setDestination(mMerchant);
-        mNavigationView.setLocationName("McDonald's");
-        mNavigationView.setInstruction("Some Instructions");
+        mNavigationView.setLocationName("Abou Shakra");
+        mNavigationView.setInstruction("No Instructions");
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()

@@ -84,7 +84,7 @@
                 android:ellipsize="marquee"
                 android:gravity="center"
                 android:maxLines="1"
-                android:text="WingStop (Daly City) "
+                android:text="Abou Shakra"
                 android:textColor="@color/dd_black"/>
 
             <TextView
@@ -96,7 +96,7 @@
                 android:ellipsize="marquee"
                 android:gravity="center"
                 android:maxLines="1"
-                android:text="$50.63 Subtotal (7 items)"
+                android:text="$50.63 Subtotal (1 item)"
                 android:textColor="@color/dd_black"/>
 
             <TextView
