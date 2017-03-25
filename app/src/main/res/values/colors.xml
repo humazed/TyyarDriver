@@ -5,6 +5,18 @@
     <color name="colorAccent">@color/red</color>
 
 
+
+    <color name="dd_black">#ff1b1b1b</color>
+    <color name="dd_border_grey">#ffd6d8de</color>
+    <color name="dd_green">#ff6acb38</color>
+    <color name="dd_grey">#ffe3e3e3</color>
+    <color name="dd_light_grey">#fff3f3f3</color>
+    <color name="dd_orange">#ffef4e42</color>
+    <color name="dd_red">#fff44336</color>
+    <color name="dd_red_disabled">#ff999999</color>
+    <color name="dd_yellow">#fff8d01c</color>
+    <color name="grey">#ffbababa</color>
+
     <color name="brow_grey">#3F51B5</color>
     <color name="DD_BLACK">#ff000000</color>
     <color name="DD_BOOST_YELLOW">#ffffc300</color>
@@ -20,7 +32,6 @@
     <color name="dark_grey">#ff3b3b3b</color>
     <color name="dark_lime_green">#ff6cbe00</color>
     <color name="dark_yellow">#ffd9a83f</color>
-    <color name="dd_black">#ff333333</color>
     <color name="dd_black_50_opacity">#80333333</color>
     <color name="dd_light_yellow">#ffeef7dc</color>
     <color name="dd_white">#ffffffff</color>

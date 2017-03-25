@@ -2,4 +2,28 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+
+
+    <dimen name="item_padding">52dp</dimen>
+    <dimen name="item_padding_extra_small">12dp</dimen>
+    <dimen name="item_padding_medium">21dp</dimen>
+    <dimen name="item_padding_small">16dp</dimen>
+    <dimen name="login_logo_height">34dp</dimen>
+    <dimen name="login_logo_margin_bottom">14dp</dimen>
+    <dimen name="login_logo_margin_top">27dp</dimen>
+    <dimen name="login_logo_margin_top_small">16dp</dimen>
+    <dimen name="login_logo_small_height">16dp</dimen>
+    <dimen name="login_logo_small_width">40dp</dimen>
+    <dimen name="login_logo_width">80dp</dimen>
+    <dimen name="login_padding_top">200dp</dimen>
+    <dimen name="login_pass_margin_top">6dp</dimen>
+    <dimen name="text_size_extra_small">10sp</dimen>
+    <dimen name="text_size_large">21sp</dimen>
+    <dimen name="text_size_medium">16sp</dimen>
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="menu_chat_banner_size">66dp</dimen>
+    <dimen name="menu_chat_text_margin">16dp</dimen>
+    <dimen name="menu_chat_text_padding">10dp</dimen>
+
+
 </resources>

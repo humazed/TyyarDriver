@@ -30,6 +30,14 @@
 
     <!--ToCustomerActivity end-->
 
+    <!--LoginActivity start-->
+    <string name="learn_about_tyyar">Learn about Tyyar</string>
+    <string name="promotion_text">Move Your City, Make Money</string>
+    <string name="action_sign_in">Sign In</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="hint_password">Password</string>
+
+    <!--LoginActivity end-->
 
     <string name="undo_delivery">"NOT DELIVERED <font color='#EE0000'>UNDO</font>"</string>
 
